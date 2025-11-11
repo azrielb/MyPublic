@@ -1,1 +1,1 @@
-git grep --color=always -nriE %1 * | grep --color=never -vE ".{1000}"
+git grep --color=always -nriE %* * | grep --color=never -vE ".{1000}"

@@ -1,1 +1,1 @@
-grep --color=always -nriE %1 * 2>&1 | grep --color=never -vE "^(Binary file .* matches|grep: .*: Device or resource busy)$" | grep --color=never -vE ".{1000}" | grep --color=never -vE "/(obj|Debug|out|bin|\\.pio|\\.git|\\.vs|\\.svn/pristine)/"
+grep --color=always -nriE %* * 2>&1 | grep --color=never -vE "^(Binary file .* matches|grep: .*: Device or resource busy)$" | grep --color=never -vE ".{1000}" | grep --color=never -vE "/(obj|Debug|out|bin|\\.pio|\\.git|\\.vs|\\.svn/pristine)/"

@@ -1,5 +1,6 @@
 import git # requires "GitPython"
 import os
+import sys
 from azriel import ask_yn, run_os_command, get_output_of_os_command
 
 
@@ -18,8 +19,10 @@ for branch in repo.branches:
         exit_code = run_os_command(f"git fetch origin {branch.name}:{branch.name}") #we use the command line interface for printing the information
         if exit_code != 0:
             if ask_yn("Do you want to delete this local branch?", False):
-                run_os_command("git branch -D " + branch.name)            
+                run_os_command("git branch -D " + branch.name)
 run_os_command("git status")
+if len(sys.argv) > 1:
+    run_os_command("git merge " + sys.argv[1])
 if 'use "git push"' in repo.git.status():
     if ask_yn("Do you want to push your changes?"):
         run_os_command("git push")

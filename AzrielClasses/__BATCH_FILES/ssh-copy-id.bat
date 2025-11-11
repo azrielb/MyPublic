@@ -1,1 +1,1 @@
-bash ssh-copy-id %1
+bash ssh-copy-id %*
