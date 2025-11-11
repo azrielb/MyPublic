@@ -23,9 +23,14 @@ def get_output_of_os_command(cmd):
         raise(e)
 
 def ask_yn(question, yes_is_default = True):
-    options = '[Y]|[n]' if yes_is_default else ''
-    res = input(f"{question} {options} ")[0].lower()
+    options = '[Y]|[n]' if yes_is_default else '[y]|[N]'
+    default_res = 'y' if yes_is_default else 'n'
+    res = (input(f"{question} {options} ") or default_res)[0].lower()
     print()
     if yes_is_default:
         return res != 'n'
-    return res != 'y'
+    return res == 'y'
+    
+if __name__ == "__main__":
+    while ask_yn(""):
+        pass
