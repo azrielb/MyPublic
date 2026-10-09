@@ -25,8 +25,27 @@ for branch in repo.branches:
             if ask_yn("Do you want to delete this local branch?", False):
                 run_os_command("git branch -D " + branch.name)
 run_os_command("git status")
-if len(sys.argv) > 1:
-    run_os_command("git merge --no-edit " + sys.argv[1])
+def get_main_branch(repo):
+    try:
+        ref = repo.git.symbolic_ref('refs/remotes/origin/HEAD')
+        return ref.split('/')[-1]
+    except Exception:
+        pass
+    try:
+        output = repo.git.ls_remote('--symref', 'origin', 'HEAD')
+        for line in output.splitlines():
+            if line.startswith('ref: refs/heads/'):
+                return line.split('refs/heads/')[1].split('\t')[0]
+    except Exception:
+        pass
+    for name in ('main', 'master'):
+        if any(b.name == name for b in repo.branches):
+            return name
+    return None
+
+branch_to_merge = sys.argv[1] if len(sys.argv) > 1 else get_main_branch(repo)
+if branch_to_merge and branch_to_merge != repo.active_branch.name:
+    run_os_command("git merge --no-edit " + branch_to_merge)
 if 'use "git push"' in repo.git.status():
     if ask_yn("Do you want to push your changes?"):
         run_os_command("git push")
