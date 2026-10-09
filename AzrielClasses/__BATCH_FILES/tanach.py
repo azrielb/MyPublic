@@ -81,7 +81,6 @@ def find_chapters_without_starting_vav():
     found_chapters = []
     for (book, chapter), words in chapters.items():
         has_vav = False
-        print(len(words))
         for word in words:
             if word.startswith('ו'):
                 has_vav = True
