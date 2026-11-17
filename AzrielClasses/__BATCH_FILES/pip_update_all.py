@@ -12,7 +12,7 @@ starlette  0.31.1  0.33.0       wheel
 uvicorn    0.23.2  0.24.0.post1 wheel
 '''
 lines = output.split('\n')[2:]
-packagesThatNeedToBeUpdatedAlways = 'pip aiofile mcp-atlassian pydantic'
+packagesThatNeedToBeUpdatedAlways = 'pip mcp-atlassian'
 packagesNames = [packageInfo.split()[0] for packageInfo in lines]
 if packagesNames:
     run_os_command('python -m pip install --no-warn-script-location --upgrade ' + packagesThatNeedToBeUpdatedAlways + ' ' + ' '.join(packagesNames))
